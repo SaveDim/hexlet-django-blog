@@ -1,15 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-import datetime
 from django.views import View
+
+from hexlet_django_blog.article.models import Article
 
 class IndexView(View):
 
     def get(self, request, *args, **kwargs):
-        title = 'Заголовок'
-        description = 'Описание'
-        created_at = datetime.date.today
+        articles = Article.objects.all()[:15]
         return render(request, 'articles/index.html', context={
-            'title': title, 'description': description,
-            'created_at': created_at,
+            'articles': articles,
         })
